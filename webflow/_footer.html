@@ -1,0 +1,18 @@
+<!-- ============================================================
+     Toronique — Site Settings → Custom Code → FOOTER
+     Version-controlled source of truth for the before-</body> block.
+     Changes vs the previous footer:
+     - Lenis moved from unpkg to jsDelivr, pinned, and loads with defer
+     - the inline Lenis init moved INTO js/toronique.js (guarded)
+     - the inline count-up counter script moved INTO js/toronique.js
+     - the sandbox-hosted JS replaced by the pinned jsDelivr build
+     Deferred scripts execute in document order, so Lenis is always
+     ready before toronique.js runs its init.
+     Remember to bump @1.0.0 when you tag a new release.
+     ============================================================ -->
+
+<!-- Lenis Smooth Scrolling -->
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.5/dist/lenis.min.js" defer></script>
+
+<!-- Site JS (GitHub → jsDelivr, pinned release) -->
+<script src="https://cdn.jsdelivr.net/gh/hamounbv/toronique@1.0.0/js/toronique.min.js" defer></script>

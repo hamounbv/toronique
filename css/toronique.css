@@ -1,0 +1,437 @@
+/* ================================================
+Toronique — Global Styles
+================================================ */
+
+/* ------------------------------------------------
+00. Webflow font-face override
+Place here so it loads after Webflow CSS when added in Head code
+------------------------------------------------ */
+
+/* ------------------------------------------------
+01. Token Hub
+------------------------------------------------ */
+:root {
+  /* Scaling System */
+  --size-unit: 16; /* Body font-size in design units (no px) */
+  --size-container-ideal: 1680;
+  --size-container-min: 1280px;
+  --size-container-max: 1920px;
+
+  --size-container: clamp(
+    var(--size-container-min),
+    100vw,
+    var(--size-container-max)
+  );
+
+  --size-font: calc(
+    var(--size-container) / (var(--size-container-ideal) / var(--size-unit))
+  );
+
+  font-size: var(--size-font);
+
+  /* Color aliases (still uses your existing --_colors---* vars) */
+  --color-accent: var(--_colors---accent, #5498dc);
+  --color-bg-dark: var(--_colors---bg--dark, #0b0e14);
+  --color-text-light: var(--_colors---text-color--light, #f2f5ff);
+
+  /* Existing tokens (kept as-is) */
+  --base---box-opacity: 50%;
+  --shadow-blur: 3em;
+  --address-icon-fill: var(--color-accent);
+
+  /* Motion + timing */
+  --ease-bbs: cubic-bezier(0.65, 0.05, 0, 1);
+  --dur-bbs: 735ms;
+
+  /* Underline effect */
+  --underline-top: 92%;
+  --underline-height: 1px;
+  --inline-underline-opacity: 0.48;
+
+  /* Loops */
+  --loop-x-duration: 60s;
+  --loop-y-duration: 32s;
+
+  /* SVG dash */
+  --svg-dash-duration: 8s;
+  --svg-dash-offset: 600;
+
+  /* Zoom */
+  --image-zoom-scale: 1.12;
+}
+
+/* Tablet */
+@media screen and (max-width: 991px) {
+  :root {
+    --size-container-ideal: 834;
+    --size-container-min: 768px;
+    --size-container-max: 991px;
+  }
+}
+
+/* Mobile Landscape */
+@media screen and (max-width: 767px) {
+  :root {
+    --size-container-ideal: 430;
+    --size-container-min: 480px;
+    --size-container-max: 767px;
+  }
+}
+
+/* Mobile Portrait */
+@media screen and (max-width: 479px) {
+  :root {
+    --size-container-ideal: 430;
+    --size-container-min: 320px;
+    --size-container-max: 428px;
+  }
+}
+
+/* ------------------------------------------------
+02. Color System: OKLCH and Display-P3 Fallback
+------------------------------------------------ */
+@supports (color: oklch(50% 0.2 280)) {
+  :root {
+    --_colors---black: oklch(0% 0 0);
+    --_colors---jet-black: oklch(27.44099% 0.01325 253.0412);
+    --_colors---hsa-green: oklch(41.08666% 0.04898 209.281);
+    --_colors---peach: oklch(68.97933% 0.11222 35.797);
+    --_colors---vanilla: oklch(97.76604% 0.01869 96.8597);
+    --_colors---white: oklch(100% 0 89.8756);
+
+    --_colors---gradient--green-stop-1: oklch(75.63116% 0.05108 183.3079);
+    --_colors---gradient--green-stop-2: oklch(55.78373% 0.06895 209.7173);
+    --_colors---gradient--green-stop-3: oklch(42.47057% 0.05105 210.5168);
+    --_colors---gradient--highlight-stop-1: oklch(76.03173% 0.10063 55.06835);
+    --_colors---gradient--highlight-stop-2: oklch(84.73567% 0.10453 78.735);
+    --_colors---gradient--green-stop-1-light: oklch(83.46599% 0.05012 173.6354);
+    --_colors---gradient--green-stop-2-light: oklch(67.39397% 0.08011 210.4337);
+    --_colors---gradient--peach-stop-1: oklch(79.05355% 0.09929 63.5832);
+    --_colors---gradient--peach-stop-2: oklch(84.73567% 0.10453 78.735);
+    --_colors---gradient--peach-stop-3: oklch(84.88607% 0.07339 119.7884);
+  }
+}
+
+@supports (color: color(display-p3 1 0 0)) {
+  :root {
+    --_colors---black: color(display-p3 0 0 0);
+    --_colors---jet-black: color(display-p3 0.137255 0.156863 0.180392);
+    --_colors---hsa-green: color(display-p3 0.152941 0.321569 0.34902);
+    --_colors---peach: color(display-p3 0.843137 0.505882 0.415686);
+    --_colors---vanilla: color(display-p3 0.984314 0.972549 0.917647);
+    --_colors---white: color(display-p3 1 1 1);
+
+    --_colors---gradient--green-stop-1: color(
+      display-p3 0.54902 0.733333 0.701961
+    );
+    --_colors---gradient--green-stop-2: color(
+      display-p3 0.239216 0.498039 0.541176
+    );
+    --_colors---gradient--green-stop-3: color(
+      display-p3 0.160784 0.337255 0.368627
+    );
+    --_colors---gradient--highlight-stop-1: color(
+      display-p3 0.890196 0.627451 0.447059
+    );
+    --_colors---gradient--highlight-stop-2: color(
+      display-p3 0.94902 0.772549 0.486275
+    );
+    --_colors---gradient--green-stop-1-light: color(
+      display-p3 0.658824 0.831373 0.776471
+    );
+    --_colors---gradient--green-stop-2-light: color(
+      display-p3 0.333333 0.643137 0.698039
+    );
+    --_colors---gradient--peach-stop-1: color(
+      display-p3 0.909804 0.678431 0.462745
+    );
+    --_colors---gradient--peach-stop-2: color(
+      display-p3 0.94902 0.772549 0.486275
+    );
+    --_colors---gradient--peach-stop-3: color(
+      display-p3 0.780392 0.835294 0.623529
+    );
+  }
+}
+
+/* ------------------------------------------------
+03. Reset & Box Model
+------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+  text-size-adjust: 100%;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: 8%;
+  text-underline-offset: -8%;
+  text-underline-position: from-font;
+}
+
+html {
+  scroll-behavior: initial;
+  scrollbar-width: none; /* Firefox */
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  width: 100vw;
+
+  /* IMPORTANT: one declaration only (second line was overriding the first) */
+  font-feature-settings: "liga" 1, "calt" 1;
+
+  -ms-overflow-style: none; /* IE & Edge */
+}
+
+/* Hide scrollbars universally */
+body::-webkit-scrollbar,
+body ::-webkit-scrollbar {
+  display: none;
+}
+
+svg {
+  max-width: none;
+  height: auto;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+
+a {
+  color: inherit;
+}
+
+/* ------------------------------------------------
+04. Typography Utilities
+------------------------------------------------ */
+/* Same behavior, lower specificity so Webflow overrides stay easy */
+.rte :where(:first-child, div:first-child > :first-child),
+.content-rte :where(:first-child, div:first-child > :first-child),
+.timeline-rte :where(:first-child, div:first-child > :first-child) {
+  margin-top: 0 !important;
+}
+.rte :where(:last-child, div:first-child > :last-child),
+.content-rte :where(:last-child, div:first-child > :last-child),
+.timeline-rte :where(:last-child, div:first-child > :last-child) {
+  margin-bottom: 0 !important;
+}
+
+/* ------------------------------------------------
+05. Utility Attributes
+------------------------------------------------ */
+[scroll-show="false"] {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+[scroll-show="false"]::-webkit-scrollbar {
+  display: none;
+}
+
+/* Truncate Text Utility (single core rule + variable override) */
+[data-truncate] {
+  --truncate-lines: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  -webkit-line-clamp: var(--truncate-lines);
+}
+
+[data-truncate="1"] {
+  --truncate-lines: 1;
+}
+[data-truncate="2"] {
+  --truncate-lines: 2;
+}
+
+/* Selection Highlight */
+@supports (background-color: color-mix(in srgb, black 10%, transparent)) {
+  ::selection {
+    background-color: color-mix(in srgb, currentColor 12%, transparent);
+    color: var(--color-accent);
+    text-shadow: none;
+  }
+  ::-moz-selection {
+    background-color: color-mix(in srgb, currentColor 12%, transparent);
+    color: var(--color-accent);
+    text-shadow: none;
+  }
+}
+
+[data-theme="dark"] {
+  background-color: var(--_colors---bg--dark);
+  color: var(--_colors---text--light);
+}
+[data-theme="dark-transparent"] {
+  color: var(--_colors---text--light) !important;
+  background-color: transparent;
+}
+
+[data-gradient] {
+  background: linear-gradient(
+    90deg,
+    #db4ed7 0%,
+    #b370dc 46.32%,
+    #61b4e7 82.69%
+  );
+}
+
+[data-gradient-text] {
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-repeat: repeat-x;
+  -webkit-text-fill-color: transparent;
+  color: inherit;
+}
+
+/* ------------------------------------------------
+06. Interactive Link Effects
+------------------------------------------------ */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  top: var(--underline-top);
+  left: 0%;
+  height: var(--underline-height);
+  width: 0%;
+  background: currentColor;
+  transition: width var(--dur-bbs) var(--ease-bbs);
+}
+.link-underline:hover::after {
+  width: 100%;
+}
+.link-underline:not(:hover)::after {
+  left: auto;
+  right: 0%;
+  width: 0%;
+}
+
+.inline-link-underline {
+  position: relative;
+}
+.inline-link-underline::after {
+  content: "";
+  position: absolute;
+  top: var(--underline-top);
+  left: 0%;
+  height: var(--underline-height);
+  width: 100%;
+  background: currentColor;
+  opacity: var(--inline-underline-opacity);
+  transition: opacity var(--dur-bbs) var(--ease-bbs);
+}
+.inline-link-underline:hover::after {
+  opacity: 1;
+}
+
+/* ------------------------------------------------
+07. Animations
+------------------------------------------------ */
+@keyframes loopX {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes loopY {
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+.loop-animate-x {
+  animation: loopX var(--loop-x-duration) linear infinite;
+  will-change: transform;
+}
+.loop-animate-y {
+  animation: loopY var(--loop-y-duration) linear infinite;
+  will-change: transform;
+}
+.loop-animate-x.reverse {
+  animation: loopX var(--loop-x-duration) linear infinite reverse;
+  will-change: transform;
+}
+.loop-animate-y.reverse {
+  animation: loopY var(--loop-y-duration) linear infinite reverse;
+  will-change: transform;
+}
+
+.svg-animate-line {
+  stroke-dasharray: 10 10 !important;
+  animation: svgDash var(--svg-dash-duration) linear infinite;
+}
+.svg-animate-line.reverse {
+  animation: svgDash var(--svg-dash-duration) linear infinite reverse;
+}
+
+@keyframes svgDash {
+  to {
+    stroke-dashoffset: var(--svg-dash-offset);
+  }
+}
+
+/* Motion respect */
+@media (prefers-reduced-motion: reduce) {
+  .loop-animate-x,
+  .loop-animate-y,
+  .svg-animate-line {
+    animation: none !important;
+  }
+
+  .image-w img,
+  .link-underline::after,
+  .inline-link-underline::after {
+    transition-duration: 1ms !important;
+  }
+}
+
+/* ------------------------------------------------
+08. Components / Patterns
+------------------------------------------------ */
+.image-w img {
+  transition: transform var(--dur-bbs) var(--ease-bbs);
+}
+.image-w:hover img {
+  transform: scale(var(--image-zoom-scale));
+}
+
+.s-wrapper::before,
+.s-wrapper::after {
+  display: none;
+}
+
+.s-g-navigation.is-shrunk {
+  --nav-padding: 1em;
+  border-bottom-color: var(--_colors---utility--u-muted-12);
+  background-color: var(--_colors---background--white);
+  color: var(--_colors---text--black);
+}
+
+/* ------------------------------------------------
+09. Buttons & inline emphasis
+(merged from the former in-page test styles so this
+file is the single source of truth)
+------------------------------------------------ */
+.button-link:hover .button-outline {
+  height: calc(100% + 0.5em);
+  width: calc(100% + 0.5em);
+  opacity: 1;
+  border-radius: 0.75em;
+}
+.button-link:hover .button-icon-w {
+  transform: translateX(0.25em);
+}
+.is_red strong {
+  color: var(--_colors---text--primary);
+}
